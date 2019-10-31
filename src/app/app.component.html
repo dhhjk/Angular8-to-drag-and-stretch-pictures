@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>图片绘制</title>
+</head>
+
+<body>
+  <div class="row">
+    <div class="col-sm-4">
+      <p><button (click)="inBounds = !inBounds" class="btn btn-outline-primary">边界控制</button></p>
+      <!-- <div><button class="btn btn-outline-primary" (click)="onReset(block);">重置大小</button></div> -->
+      <p><button (click)="holdPosition()" class="btn btn-outline-primary">保存位置及大小</button></p>
+      <p><button (click)="setPosition(block)" class="btn btn-outline-primary">设置位置</button></p>
+    </div>
+    <div class="col-sm-8">
+      <div class="bound-border">
+        <div class="drag-boundary" style="position: relative;" (click)="dragFlag($event)"
+          [ngClass]="{ 'top-b': !edge?.top, 'bottom-b': !edge?.bottom, 'left-b': !edge?.left, 'right-b': !edge?.right }"
+          #myBounds  >
+          <div *ngFor="let item of list;let i = index" [ngDraggable]="drag_flag[i]" [ngResizable]="drag_flag[i]" class="drag-block {{ 'drag_block_' + i }}" 
+          #block="ngResizable" rzHandles="all" (edge)="checkEdge($event)" 
+          [bounds]="myBounds" [inBounds]="inBounds" [rzAspectRatio]="true" [preventDefaultEvent]="true" 
+          (rzStart)="onResizeStart($event)" (rzStop)="onResizeStop($event)" (rzResizing)="onResizing($event)" 
+          (started)="onStart($event)" (stopped)="onStop($event)" (movingOffset)="onMoving($event)" 
+          (endOffset)="onMoveEnd($event)" [rzMinWidth]="imageLimit.rzMinWidth" [rzMaxWidth]="imageLimit.rzMaxWidth" [position]="item_position[i]"
+          [rzMinHeight]="imageLimit.rzMinHeight" [rzMaxHeight]="imageLimit.rzMaxHeight" [ngStyle]="{'position': 'absolute'}">
+          <!-- bounds 控制边界大小, inBounds 控制边界是否可以超出, rzAspectRatio 保持纵横比, rzHandles 控制调整大小的方向 all为全部 
+            [rzHandles]="'n,e,s,w,se,sw,ne,nw'", rzMinWidth rzMaxWidth rzMinHeight rzMaxHeight 控制调整大小界限  e,s,se -->
+            <img src="../assets/compodoc-vectorise.png" id="{{ 'img' + i }}">
+          </div>
+          <!-- <div [ngDraggable]="drag_flag[1]" [ngResizable]="drag_flag[1]" class="drag-block drag_block_2" #block="ngResizable" rzHandles="all" (edge)="checkEdge($event)" 
+          [bounds]="myBounds" [inBounds]="inBounds" [rzAspectRatio]="true" [preventDefaultEvent]="true" 
+          (rzStart)="onResizeStart($event)" (rzStop)="onResizeStop($event)" (rzResizing)="onResizing($event)" 
+          (started)="onStart($event)" (stopped)="onStop($event)" (movingOffset)="onMoving($event)" 
+          (endOffset)="onMoveEnd($event)" [rzMinWidth]="imageLimit.rzMinWidth" [rzMaxWidth]="imageLimit.rzMaxWidth" [position]="item_position[1]"
+          [rzMinHeight]="imageLimit.rzMinHeight" [rzMaxHeight]="imageLimit.rzMaxHeight" [ngStyle]="{'position': 'absolute'}">
+            <img src="../assets/logo-symbol.png" id="img1">
+          </div>-->
+        </div> 
+      </div>
+      <div class="col-sm-4">
+          <h3>显示信息</h3>
+          <div class="alert alert-secondary" role="alert">
+            movingOffset: {{'{'}} x: {{movingOffset.x}}, y: {{movingOffset.y}} {{'}'}}
+          </div>
+          <div class="alert alert-secondary" role="alert">
+            endOffset: {{'{'}} x: {{endOffset.x}}, y: {{endOffset.y}} {{'}'}}
+          </div>
+          <hr>
+          <div><strong>State:</strong> {{ state }}</div>
+          <div><strong>Size:</strong> {{ size | json }}</div>
+          <p>[item_position] = {{ item_position === undefined ? 'undefined' : item_position | json }}</p>
+          <p>[position] = {{ position === undefined ? 'undefined' : position | json }}</p>
+          <!-- <div><strong>Position:</strong> {{ position | json }}</div> -->
+        </div>
+    </div>
+  </div>
+</body>
+
+</html>
+
+
+<!-- <div class="drag-boundary" style="position: relative;" (click)="dragFlag($event)"
+[ngClass]="{ 'top-b': !edge?.top, 'bottom-b': !edge?.bottom, 'left-b': !edge?.left, 'right-b': !edge?.right }"
+#myBounds  *ngFor="let item of list;let i = index" >
+<div *ngIf="item"[ngDraggable]="drag_flag[i]" [ngResizable]="drag_flag[i]" class="drag-block {{ 'drag_block_' + $i }}" #block="ngResizable" rzHandles="all" (edge)="checkEdge($event)" 
+[bounds]="myBounds" [inBounds]="inBounds" [rzAspectRatio]="true" [preventDefaultEvent]="true" 
+(rzStart)="onResizeStart($event)" (rzStop)="onResizeStop($event)" (rzResizing)="onResizing($event)" 
+(started)="onStart($event)" (stopped)="onStop($event)" (movingOffset)="onMoving($event)" 
+(endOffset)="onMoveEnd($event)" [rzMinWidth]="imageLimit.rzMinWidth" [rzMaxWidth]="imageLimit.rzMaxWidth" [position]="item_position[0]"
+[rzMinHeight]="imageLimit.rzMinHeight" [rzMaxHeight]="imageLimit.rzMaxHeight" [ngStyle]="{'position': 'absolute'}">
+  <img src="../assets/compodoc-vectorise.png" id="{{ 'img' + $i }}">
+</div> -->
