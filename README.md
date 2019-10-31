@@ -8,6 +8,7 @@ And I also used the angular2 draggable plug-in.
 Before starting this project, first store the demo data in the local storage, for example：
 [{"id":1,"x":501,"y":296,"w":84,"h":84,"l":-7,"t":-50},{"id":2,"x":126,"y":24,"w":79,"h":79,"l":52,"t":52},{"id":3,"x":324,"y":135,"w":77,"h":77,"l":5,"t":5},{"id":4,"x":572,"y":106,"w":62,"h":62,"l":-5,"t":-5},{"id":5,"x":343,"y":20,"w":48,"h":48,"l":28,"t":36}]
 
+This is my frist angular program.
 You can ask me any question you have.
 
 ## Development server
